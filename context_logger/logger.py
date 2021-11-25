@@ -12,10 +12,10 @@ class ContextLogger:
         self.add_context('module', name)
 
     @staticmethod
-    def setup_logging() -> None:
+    def setup_logging(level=logging.DEBUG) -> None:
         logging.basicConfig(
             format=f'%(levelname)s{LOG_SEPARATOR}%(message)s',
-            level=logging.DEBUG,
+            level=level,
         )
 
     def add_context(self, key, value) -> None:
