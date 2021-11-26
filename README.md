@@ -20,5 +20,5 @@ logger = ContextLogger(__name__)
 logger.add_context('important property', 42)
 logger.info('Info log')
 
-# INFO::{'module': '__module__', 'important property': 42}::Info log
+# INFO::{'name': '__module__', 'important property': 42}::Info log
 ```
