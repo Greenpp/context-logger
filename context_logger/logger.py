@@ -2,18 +2,19 @@ import logging
 from typing import Any, Optional
 
 LOG_SEPARATOR = '::'
-MODULE_KEY = 'module'
+NAME_KEY = 'name'
+DEFAULT_NAME = 'default'
 
 
 class ContextLogger:
     def __init__(
         self,
-        name: str,
+        name: str = DEFAULT_NAME,
         from_logger: Optional['ContextLogger'] = None,
     ) -> None:
         """Creates a new instance of ContextLogger.
 
-        If another logger is passed, its context is used as the base. The module name is replaced on creation.
+        If another logger is passed, its context is used as the base. Name is replaced on creation.
 
         Args:
             name (str): Name of the logger
@@ -25,7 +26,7 @@ class ContextLogger:
             self.context: dict[str, Any] = {}
         else:
             self.context = from_logger.context.copy()
-        self.add_context(MODULE_KEY, name, warn_on_existing=False)
+        self.add_context(NAME_KEY, name, warn_on_existing=False)
 
     @staticmethod
     def setup_logging(level=logging.INFO) -> None:
