@@ -97,3 +97,12 @@ class ContextLogger:
         """
         context_msg = self._add_context_to_msg(msg)
         self.logger.error(context_msg, **kwargs)
+
+    def critical(self, msg: str, **kwargs):
+        """ogs critical output.
+
+        Args:
+            msg (str): Log message.
+        """
+        context_msg = self._add_context_to_msg(msg)
+        self.logger.critical(context_msg, **kwargs)
