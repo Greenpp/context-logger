@@ -6,21 +6,25 @@ MODULE_KEY = 'module'
 
 
 class ContextLogger:
-    def __init__(self, name: str, context: Optional[dict[str, Any]]) -> None:
+    def __init__(
+        self,
+        name: str,
+        from_logger: Optional['ContextLogger'] = None,
+    ) -> None:
         """Creates a new instance of ContextLogger.
 
-        If context is passed, a copy if it is used for the new logger.
+        If another logger is passed, its context is used as the base. The module name is replaced on creation.
 
         Args:
             name (str): Name of the logger
-            context (Optional[dict[str, Any]]): Context of another logger. Optional.
+            from_logger (Optional[, optional): Optional logger which context should be used as base. Defaults to None.
         """
         self.logger = logging.getLogger(name)
 
-        if context is None:
+        if from_logger is None:
             self.context: dict[str, Any] = {}
         else:
-            self.context = context.copy()
+            self.context = from_logger.context.copy()
         self.add_context(MODULE_KEY, name, warn_on_existing=False)
 
     @staticmethod
@@ -35,7 +39,12 @@ class ContextLogger:
             level=level,
         )
 
-    def add_context(self, key: str, value: Any, warn_on_existing: bool = True) -> None:
+    def add_context(
+        self,
+        key: str,
+        value: Any,
+        warn_on_existing: bool = True,
+    ) -> None:
         """Adds new value to the context.
 
         Args:
