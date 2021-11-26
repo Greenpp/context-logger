@@ -1,15 +1,19 @@
 import logging
-from typing import Any
+from typing import Any, Optional
 
 LOG_SEPARATOR = '::'
+MODULE_KEY = 'module'
 
 
 class ContextLogger:
     def __init__(self, name: str) -> None:
         self.logger = logging.getLogger(name)
-        self.context: dict[str, Any] = {}
 
-        self.add_context('module', name)
+        if context is None:
+            self.context: dict[str, Any] = {}
+        else:
+            self.context = context.copy()
+        self.add_context(MODULE_KEY, name, warn_on_existing=False)
 
     @staticmethod
     def setup_logging(level=logging.INFO) -> None:
