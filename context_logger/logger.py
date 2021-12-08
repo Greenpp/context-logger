@@ -18,7 +18,7 @@ class ContextLogger:
 
         Args:
             name (str): Name of the logger
-            from_logger (Optional[dict]): Optional context which should be used. Defaults to None.
+            from_logger (Optional[dict], optional): Optional context which should be used. Defaults to None.
         """
         self.logger = logging.getLogger(name)
 
