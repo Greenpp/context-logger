@@ -58,7 +58,7 @@ def test_inherit_context(caplog):
     cx_new_val = 0
 
     cl.add_context(cx_key, cx_val)
-    cl2 = ContextLogger(cx_new_name, cl)
+    cl2 = ContextLogger(cx_new_name, cl.context)
 
     assert not caplog.text
 

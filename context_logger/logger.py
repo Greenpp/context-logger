@@ -10,7 +10,7 @@ class ContextLogger:
     def __init__(
         self,
         name: str = DEFAULT_NAME,
-        from_logger: Optional['ContextLogger'] = None,
+        context: Optional[dict] = None,
     ) -> None:
         """Creates a new instance of ContextLogger.
 
@@ -18,14 +18,14 @@ class ContextLogger:
 
         Args:
             name (str): Name of the logger
-            from_logger (Optional[, optional): Optional logger which context should be used as base. Defaults to None.
+            from_logger (Optional[dict]): Optional context which should be used. Defaults to None.
         """
         self.logger = logging.getLogger(name)
 
-        if from_logger is None:
+        if context is None:
             self.context: dict[str, Any] = {}
         else:
-            self.context = from_logger.context.copy()
+            self.context = context.copy()
         self.add_context(NAME_KEY, name, warn_on_existing=False)
 
     @staticmethod
